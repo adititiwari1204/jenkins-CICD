@@ -1,55 +1,53 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')  
+        IMAGE_NAME = "adititiwari/nginx-app"  
+    }
+
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo 'Fetching code from GitHub...'
-                git url:'https://github.com/adititiwari1204/jenkins-CICD.git',branch:'main'
+                echo 'Cloning repository...'
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                docker build -t nginx . // Example: for Node.js
-                sh 'npm install'
+                echo 'Building Docker image for Nginx...'
+                sh 'docker build -t $IMAGE_NAME:latest .'
             }
         }
 
-        stage('Test') {
+        stage('Push to DockerHub') {
             steps {
-                echo 'Running tests...'
-               sh' docker run -d --name nginx-test -p 8080:80 nginx'
-                    sleep 5
-                   sh' curl -I http://localhost:8080'
-                    docker stop nginx-test
-                    docker rm nginx-test   // Replace this with your own test command
-                sh 'npm test'
+                echo 'Pushing Nginx image to DockerHub...'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                    sh 'docker push $IMAGE_NAME:latest'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
-               sh' docker stop nginx-prod' || true
-               sh'docker rm nginx-prod' || true
-               sh' docker run -d --name nginx-prod -p 80:80 nginx'  // Example placeholder (you can change this to Docker, server, etc.)
-                sh 'echo "Deploy successful!"'
+                echo 'Deploying Nginx container...'
+                // Remove old container if exists
+                sh 'docker rm -f nginx-app || true'
+                // Run new container
+                sh 'docker run -d -p 9090:80 --name nginx-app $IMAGE_NAME:latest'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline executed successfully!'
+            echo 'Nginx deployment successful!'
         }
         failure {
-            echo 'Pipeline failed. Check the logs for details.'
+            echo 'Pipeline failed.'
         }
     }
 }
-
- 
-      
-      
