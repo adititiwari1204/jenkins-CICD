@@ -1,7 +1,0 @@
-# Ignore common unwanted files in the build context
-.git
-.gitignore
-node_modules
-npm-debug.log
-.DS_Store
-.vscode
