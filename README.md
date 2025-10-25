@@ -1,3 +1,7 @@
+<img width="1914" height="901" alt="Screenshot 2025-10-25 163603" src="https://github.com/user-attachments/assets/745585d2-6971-453f-86d4-98c8a88e473f" />
+<img width="1508" height="997" alt="Screenshot 2025-10-25 163727" src="https://github.com/user-attachments/assets/dd01b1eb-f14f-4290-8cf6-3af13022ae5b" />
+<img width="1916" height="847" alt="Screenshot 2025-10-25 163815" src="https://github.com/user-attachments/assets/4fb97dec-cd2b-4d8b-a4bc-d31ef2cf2f98" />
+
 # jenkins-CICD
 Let’s go step-by-step to create a Declarative Jenkins CI/CD Pipeline that automatically builds, tests, and deploys your code — along with the exact commands
 
