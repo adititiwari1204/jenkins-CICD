@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')  
-        IMAGE_NAME = "adititiwari/nginx-app"  
+        $IMAGE_NAME = "adititiwari/nginx-app"  
     }
 
     stages {
