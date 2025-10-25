@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "adititiwari/nginx-app"  
+        IMAGE_NAME = "adititiwari1204/nginx-app"  
     }
 
     stages {
