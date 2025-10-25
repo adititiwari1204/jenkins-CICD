@@ -36,7 +36,7 @@ pipeline {
                 // Remove old container if exists
                 sh 'docker rm -f nginx-app || true'
                 // Run new container
-                sh 'docker run -d -p 9090:80 --name nginx-app $IMAGE_NAME:latest'
+                sh 'docker run -d -p 9090:80 --name nginx-app $IMAGE_NAME:nginx latest'
             }
         }
     }
