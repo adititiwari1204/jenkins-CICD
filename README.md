@@ -2,17 +2,19 @@
 Let’s go step-by-step to create a Declarative Jenkins CI/CD Pipeline that automatically builds, tests, and deploys your code — along with the exact commands
 
 
-Prerequisites
+#Prerequisites
 
-Before starting, make sure you have:
 
-1 .Jenkins installed and running (http://localhost:8080)
 
-2 .Git installed and configured
+    Before starting, make sure you have:
 
-3 .Docker installed (if you plan to deploy using Docker)
+    1 .Jenkins installed and running (http://localhost:8080)
 
-4 .A GitHub repository containing your project code
+    2 .Git installed and configured
+
+    3 .Docker installed (if you plan to deploy using Docker)
+
+    4 .A GitHub repository containing your project code
 
 
 Step 1: Create a Jenkinsfile in your project(in jenkins-CICD)
@@ -61,54 +63,60 @@ Step 5: Verify Logs
         Deploying application...
         Pipeline completed successfully ✅
 
+
+
+        
+
 Step 1 : Generate Docker Hub Personal Access Token
 Steps:
 
-1. Go to https://hub.docker.com/
+     1. Go to https://hub.docker.com/
+ 
+     2. Log in to your Docker Hub account
 
-2. Log in to your Docker Hub account
+     3. Click your profile picture → Account Settings
 
-3. Click your profile picture → Account Settings
+     4. Go to Security → Access Tokens
 
-4. Go to Security → Access Tokens
+     5. Click “New Access Token”
 
-5. Click “New Access Token”
+     6. Enter a name (e.g., jenkins-docker-token)
 
-6. Enter a name (e.g., jenkins-docker-token)
+     7. Select Read, Write, Delete permissions
 
-7. Select Read, Write, Delete permissions
+     8. Click Generate
 
-8. Click Generate
-
-Copy the token immediately — you’ll need it in Jenkins.
+     Copy the token immediately — you’ll need it in Jenkins.
 
 
 Step 2: Add Docker Credentials to Jenkins
 
-Open Jenkins Dashboard
+        1. Open Jenkins Dashboard
 
-1. Go to Manage Jenkins → Credentials → System → Global credentials (unrestricted)
+        2. Go to Manage Jenkins → Credentials → System → Global credentials (unrestricted)
 
-2. Click Add Credentials
+        3. Click Add Credentials
 
-3. Select:
+        4. Select:
 
-    Kind: Username with password
+             Kind: Username with password
 
-    Username: your Docker Hub username
+             Username: your Docker Hub username
 
-    Password: your Docker Hub access token
+             Password: your Docker Hub access token
 
-    ID: dockerhub-token
+             ID: dockerhub-token
 
-4. Description: “Docker Hub Token for Jenkins”
+       5. Description: “Docker Hub Token for Jenkins”
 
-5. Click OK
+       6. Click OK
 
 
 
-Important Note
 
-🔴 Without adding your Docker Hub token in Jenkins, your pipeline will fail to connect to Docker Hub.
-Jenkins needs authentication to log in and push images — Docker Hub does not allow unauthenticated pushes or logins.
-So this token is mandatory for Jenkins-to-Docker communication.
+
+# Important Note
+
+      🔴 Without adding your Docker Hub token in Jenkins, your pipeline will fail to connect to Docker Hub.
+         Jenkins needs authentication to log in and push images — Docker Hub does not allow unauthenticated pushes or logins.
+         So this token is mandatory for Jenkins-to-Docker communication.
